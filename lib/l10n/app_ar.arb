@@ -1,0 +1,16 @@
+{
+  "logo" : "كاشف الأخبار الكاذبة",
+  "home" : "الصفحة الرئيسية",
+  "trending" : "أحدث الأخبار",
+  "searchedNews" : "الأخبار مؤخرًا",
+  "history" : "سجل",
+  "review" : "تقييم",
+  "login" : "تسجيل الدخول",
+  "signOut" : "خروج",
+  "signUp" : "إنشاء حساب",
+  "changeL" : "English",
+  "darkTheme": "مظهر داكن",
+  "lightTheme": "مظهر فاتح",
+  "detectNews" : "أدخل الأخبار المراد كشفها:",
+  "detect" : "كشف"
+}
