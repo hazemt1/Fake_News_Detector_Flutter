@@ -6,6 +6,7 @@ import 'package:fake_news/utils/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../ResetPassword/ForgetPassword.dart';
 
 import '../../models/User.dart';
 
@@ -134,6 +135,12 @@ class _SignInState extends State<SignIn> {
             Container(
               margin: const EdgeInsets.only(left: 100, right: 107),
               child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ForgetPassword()),
+                  );
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
@@ -182,14 +189,14 @@ class _SignInState extends State<SignIn> {
               AppLocalizations.of(context)!.login,
               style: Theme.of(context).textTheme.bodyText1,
             ),
-          )
+          ),
         ),
         const SizedBox(
           height: 10,
         ),
       ],
     );
-  }
+
   _signIn() async {
     setState((){
       errorFlag=false;

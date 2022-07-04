@@ -28,6 +28,11 @@
   "enterEmail" : "Please enter email",
   "enterName" : "Please enter name",
   "password8char" : "password should be at least 8 characters",
+  "resetPassword" : "Reset Password",
+  "otpMsg" : "An otp code will be sent to your email",
+  "enterOtp": "Enter your otp code",
+  "enter": "Enter"
+  "password8char" : "password should be at least 8 characters",
   "fake": "FAKE",
   "fact": "FACT",
   "confidence": "With Confidence: "
