@@ -34,7 +34,10 @@ class _SignInState extends State<SignIn> {
         ),
         Text(
           AppLocalizations.of(context)!.login,
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme
+              .of(context)
+              .textTheme
+              .headline3,
         ),
         const SizedBox(
           height: 30,
@@ -55,17 +58,25 @@ class _SignInState extends State<SignIn> {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             width: 300,
             decoration: BoxDecoration(
-              border: Border.all(color: Theme.of(context).primaryColor),
+              border: Border.all(color: Theme
+                  .of(context)
+                  .primaryColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             child: TextField(
               onChanged: (s) {
                 email = s;
               },
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyText2,
               decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.email,
-                  hintStyle: Theme.of(context).textTheme.subtitle1,
+                  hintStyle: Theme
+                      .of(context)
+                      .textTheme
+                      .subtitle1,
                   border: InputBorder.none),
             ),
           ),
@@ -77,7 +88,9 @@ class _SignInState extends State<SignIn> {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             width: 300,
             decoration: BoxDecoration(
-              border: Border.all(color: Theme.of(context).primaryColor),
+              border: Border.all(color: Theme
+                  .of(context)
+                  .primaryColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             child: Row(
@@ -88,17 +101,23 @@ class _SignInState extends State<SignIn> {
                       password = s;
                     },
                     obscureText: obscure,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyText2,
                     decoration: InputDecoration(
                         hintText: AppLocalizations.of(context)!.password,
-                        hintStyle: Theme.of(context).textTheme.subtitle1,
+                        hintStyle: Theme
+                            .of(context)
+                            .textTheme
+                            .subtitle1,
                         border: InputBorder.none),
                   ),
                 ),
                 IconButton(
                   onPressed: () {
                     setState(
-                      () {
+                          () {
                         obscure = !obscure;
                       },
                     );
@@ -136,16 +155,16 @@ class _SignInState extends State<SignIn> {
               margin: const EdgeInsets.only(left: 100, right: 107),
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ForgetPassword()),
-                  );
+                  Navigator.of(context).pushNamed(forgetPasswordRoute);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
                     AppLocalizations.of(context)!.forgotPassword,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .subtitle1,
                   ),
                 ),
               ),
@@ -162,11 +181,14 @@ class _SignInState extends State<SignIn> {
                   padding: const EdgeInsets.all(8),
                   child: Text(
                     AppLocalizations.of(context)!.createNewAccount,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .subtitle1,
                   ),
                 ),
                 onTap: () {
-                  Navigator.of(context).pushNamedIfNotCurrent(SignUpRoute);
+                  Navigator.of(context).pushNamedIfNotCurrent(signUpRoute);
                 },
               ),
             ),
@@ -181,13 +203,19 @@ class _SignInState extends State<SignIn> {
           child: Container(
             margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme
+                  .of(context)
+                  .colorScheme
+                  .primary,
               borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 12),
             child: Text(
               AppLocalizations.of(context)!.login,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyText1,
             ),
           ),
         ),
@@ -196,7 +224,7 @@ class _SignInState extends State<SignIn> {
         ),
       ],
     );
-
+  }
   _signIn() async {
     setState((){
       errorFlag=false;
@@ -222,7 +250,8 @@ class _SignInState extends State<SignIn> {
           token: res[0],
         ),
       );
-      Navigator.of(context).popAndPushNamed(HomeRoute);
+      Navigator.of(context).popAndPushNamed(homeRoute);
     }
   }
+
 }

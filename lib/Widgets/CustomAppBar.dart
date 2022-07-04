@@ -36,7 +36,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         text: AppLocalizations.of(context)!.home,
         function: () {
           Navigator.of(context).pushNamedIfNotCurrent(
-            DetectorRoute,
+            detectorRoute,
             arguments: {
               'appBar': CustomAppBar(
                 appBar: AppBar(),
@@ -48,7 +48,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       AppBarItem(
         text: AppLocalizations.of(context)!.trending,
         function: () {
-          Navigator.of(context).pushNamedIfNotCurrent(TrendingRoute);
+          Navigator.of(context).pushNamedIfNotCurrent(trendingRoute);
         },
       ),
       AppBarItem(
@@ -64,7 +64,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         AppBarItem(
           text: AppLocalizations.of(context)!.review,
           function: () {
-            Navigator.of(context).pushNamedIfNotCurrent(ReviewRoute);
+            Navigator.of(context).pushNamedIfNotCurrent(reviewRoute);
           },
         )
     ];
@@ -99,7 +99,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.of(context).pushNamedIfNotCurrent(HomeRoute);
+                  Navigator.of(context).pushNamedIfNotCurrent(homeRoute);
                 },
                 child: Text(
                   AppLocalizations.of(context)!.logo,
@@ -143,13 +143,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   SignButton(
                     text: AppLocalizations.of(context)!.login,
                     function: () {
-                      Navigator.of(context).pushNamedIfNotCurrent(SignInRoute);
+                      Navigator.of(context).pushNamedIfNotCurrent(signInRoute);
                     },
                   ),
                   SignButton(
                     text: AppLocalizations.of(context)!.signUp,
                     function: () {
-                      Navigator.of(context).pushNamedIfNotCurrent(SignUpRoute);
+                      Navigator.of(context).pushNamedIfNotCurrent(signUpRoute);
                     },
                   ),
                 ],
@@ -163,8 +163,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     Preferences.removeUser();
                     BlocProvider.of<UserBloc>(context).add(const UserLogout());
                   });
-                  if(Navigator.of(context).isCurrent(ReviewRoute)){
-                    Navigator.of(context).popAndPushNamed(HomeRoute);
+                  if(Navigator.of(context).isCurrent(reviewRoute)){
+                    Navigator.of(context).popAndPushNamed(homeRoute);
                   }
 
 

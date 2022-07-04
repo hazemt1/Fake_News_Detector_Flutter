@@ -1,5 +1,5 @@
-import 'package:fake_news/Screens/ResetPassword/OtpCode.dart';
-import 'package:fake_news/Widgets/CustomAppBar.dart';
+import 'package:fake_news/Api/AuthAPI.dart';
+import 'package:fake_news/utils/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -11,82 +11,90 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
+  bool errorFlag =false;
+  String error='';
+  String email='';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        appBar: AppBar(),
-      ),
-      body: Column(
+    return  Column(
         children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage("assets/pattern.png"),
-                  fit: BoxFit.fill,
-                  colorFilter: ColorFilter.mode(
-                    Theme.of(context).colorScheme.primary,
-                    BlendMode.srcIn,
-                  ),
-                ),
-                color: Theme.of(context).primaryColor,
-              ),
-              child: AlertDialog(
-                backgroundColor: Theme.of(context).primaryColor,
-                title: Center(
-                  child: Text(
-                    AppLocalizations.of(context)!.enterEmail,
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                ),
-                actions: [
-                  TextField(
-                    style: Theme.of(context).textTheme.bodyText2,
-                    decoration: InputDecoration(
-                        hintText: AppLocalizations.of(context)!.email,
-                        hintStyle: Theme.of(context).textTheme.subtitle1),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Center(
-                    child: ButtonTheme(
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
-                            ),
-                          ),
-                        ),
-                        child: Text(
-                          AppLocalizations.of(context)!.resetPassword,
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => OtpForm()),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Center(
-                    child: Text(AppLocalizations.of(context)!.otpMsg),
-                  ),
-                ],
+          AlertDialog(
+            // backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Colors.transparent,
+            title: Center(
+              child: Text(
+                AppLocalizations.of(context)!.enterEmail,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
+            actions: [
+              if(errorFlag)
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.red)),
+                    child: Text(error),
+                  ),
+                ),
+              TextField(
+                onChanged: (t){
+                  email=t;
+                },
+                style: Theme.of(context).textTheme.bodyText2,
+                decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.email,
+                    hintStyle: Theme.of(context).textTheme.subtitle1),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: ButtonTheme(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape:
+                      MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      AppLocalizations.of(context)!.resetPassword,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                    onPressed: () async{
+                      setState((){
+                        errorFlag=false;
+                        error='';
+                      });
+                      String res = await AuthAPI.forgetPassword(email);
+                      print(res);
+                      if(res!=''){
+                        setState((){
+                          errorFlag=true;
+                          error=res;
+                        });
+                      }
+                      else{
+                        Navigator.of(context).pushNamed(enterNewPasswordRoute);
+                      }
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: Text(AppLocalizations.of(context)!.otpMsg),
+              ),
+            ],
           ),
         ],
-      ),
     );
   }
 }

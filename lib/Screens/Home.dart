@@ -79,7 +79,7 @@ class _HomeState extends State<Home> {
                       InkWell(
                         onTap: () {
                           Navigator.of(context).pushNamed(
-                            DetectorAnimatedRoute,
+                            detectorAnimatedRoute,
                             arguments: {
                               'appBar': AnimatedCustomAppBar(
                                 appBar: AppBar(),
@@ -143,7 +143,7 @@ class _HomeState extends State<Home> {
                     InkWell(
                         onTap: () {
                           Navigator.of(context).pushNamed(
-                            DetectorAnimatedRoute,
+                            detectorAnimatedRoute,
                             arguments: {
                               'appBar': AnimatedCustomAppBar(
                                 appBar: AppBar(),

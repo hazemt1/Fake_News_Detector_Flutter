@@ -251,7 +251,7 @@ class _SignUpState extends State<SignUp> {
             token: res[0],
           ),
         );
-        Navigator.of(context).popAndPushNamed(HomeRoute);
+        Navigator.of(context).popAndPushNamed(homeRoute);
       }
     }
   }

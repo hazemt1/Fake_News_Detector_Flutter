@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
                     .currentLocale,
               ),
               onGenerateRoute: RouteHandler.generateRoute,
-              initialRoute: HomeRoute,
+              initialRoute: homeRoute,
             );
           },
         ),

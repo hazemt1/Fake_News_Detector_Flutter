@@ -19,7 +19,7 @@ class CustomDrawer extends StatelessWidget {
         text: AppLocalizations.of(context)!.home,
         function: () {
           Navigator.of(context).pushNamedIfNotCurrent(
-            DetectorRoute,
+            detectorRoute,
             arguments: {
               'appBar': CustomAppBar(
                 appBar: AppBar(),
@@ -31,7 +31,7 @@ class CustomDrawer extends StatelessWidget {
       AppBarItem(
         text: AppLocalizations.of(context)!.trending,
         function: () {
-          Navigator.of(context).pushNamedIfNotCurrent(TrendingRoute);
+          Navigator.of(context).pushNamedIfNotCurrent(trendingRoute);
         },
       ),
       AppBarItem(
@@ -47,7 +47,7 @@ class CustomDrawer extends StatelessWidget {
         AppBarItem(
           text: AppLocalizations.of(context)!.review,
           function: () {
-            Navigator.of(context).pushNamedIfNotCurrent(ReviewRoute);
+            Navigator.of(context).pushNamedIfNotCurrent(reviewRoute);
           },
         )
     ];
