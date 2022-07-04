@@ -1,9 +1,9 @@
 import 'package:fake_news/Screens/Detector.dart';
 import 'package:fake_news/Screens/Home.dart';
+import 'package:fake_news/Screens/Review/ReviewScreen.dart';
 import 'package:fake_news/Screens/Sign/SignIn.dart';
 import 'package:fake_news/Screens/Sign/SignUp.dart';
 import 'package:fake_news/Screens/Trending/Trending.dart';
-import 'package:fake_news/Widgets/CustomAppBar.dart';
 import 'package:fake_news/utils/CustomPageRoute.dart';
 import 'package:fake_news/utils/Routes.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +33,8 @@ class RouteHandler {
         return MaterialPageRoute(builder: (_)=> Sign(inUp: const SignUp()),settings: settings);
       case TrendingRoute:
         return MaterialPageRoute(builder: (_)=> const TrendingScreen(),settings: settings);
+      case ReviewRoute:
+        return MaterialPageRoute(builder: (_)=> const ReviewScreen(),settings: settings);
 
       default:
         return MaterialPageRoute(

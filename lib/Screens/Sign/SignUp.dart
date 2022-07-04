@@ -1,5 +1,10 @@
-import 'package:fake_news/Widgets/CustomAppBar.dart';
+import 'package:fake_news/Api/AuthAPI.dart';
+import 'package:fake_news/bloc/user/user_bloc.dart';
+import 'package:fake_news/models/User.dart';
+import 'package:fake_news/utils/Routes.dart';
+import 'package:fake_news/utils/preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUp extends StatefulWidget {
@@ -11,6 +16,9 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final _registerFormKey = GlobalKey<FormState>();
+  String error = '';
+  bool errorFlag = false;
+
   String userName = '';
 
   String email = '';
@@ -31,7 +39,19 @@ class _SignUpState extends State<SignUp> {
           style: Theme.of(context).textTheme.headline3,
         ),
         const SizedBox(
-          height: 25,
+          height: 10,
+        ),
+        if (errorFlag)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            decoration: BoxDecoration(
+                color: Colors.redAccent,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red)),
+            child: Text(error),
+          ),
+        const SizedBox(
+          height: 15,
         ),
         Form(
           key: _registerFormKey,
@@ -40,7 +60,7 @@ class _SignUpState extends State<SignUp> {
               //Name Widget
               formTextField(
                 context: context,
-                field: "username",
+                field: "userName",
                 hintText: AppLocalizations.of(context)!.name,
                 validator: usernameValidation,
               ),
@@ -206,7 +226,33 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void createAccount() {
-    if (_registerFormKey.currentState?.validate() == true) {}
+  void createAccount() async {
+    setState(() {
+      errorFlag = false;
+      error = '';
+    });
+    if (_registerFormKey.currentState?.validate() == true) {
+      List res =
+          await AuthAPI.signup(User(email: email, password: password,name: userName));
+      if (res.length == 1) {
+        setState(() {
+          errorFlag = true;
+          error = res[0];
+        });
+      } else {
+        Preferences.setToken(res[0]);
+        BlocProvider.of<UserBloc>(context).add(
+          UserLogin(
+            user: User(
+              name: res[1],
+              email: res[2],
+              id: res[3],
+            ),
+            token: res[0],
+          ),
+        );
+        Navigator.of(context).popAndPushNamed(HomeRoute);
+      }
+    }
   }
 }

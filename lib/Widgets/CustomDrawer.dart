@@ -1,8 +1,10 @@
 import 'package:fake_news/Widgets/AppBarItem.dart';
 import 'package:fake_news/Widgets/CustomAppBar.dart';
+import 'package:fake_news/bloc/user/user_bloc.dart';
 import 'package:fake_news/utils/RouteHandler.dart';
 import 'package:fake_news/utils/Routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
@@ -36,14 +38,18 @@ class CustomDrawer extends StatelessWidget {
         text: AppLocalizations.of(context)!.searchedNews,
         function: () {},
       ),
-      AppBarItem(
-        text: AppLocalizations.of(context)!.history,
-        function: () {},
-      ),
-      AppBarItem(
-        text: AppLocalizations.of(context)!.review,
-        function: () {},
-      )
+      if(BlocProvider.of<UserBloc>(context).state.logInfo.isLoggedIn)
+        AppBarItem(
+          text: AppLocalizations.of(context)!.history,
+          function: () {},
+        ),
+      if(BlocProvider.of<UserBloc>(context).state.logInfo.isLoggedIn)
+        AppBarItem(
+          text: AppLocalizations.of(context)!.review,
+          function: () {
+            Navigator.of(context).pushNamedIfNotCurrent(ReviewRoute);
+          },
+        )
     ];
     return Drawer(
       backgroundColor: Colors.transparent,

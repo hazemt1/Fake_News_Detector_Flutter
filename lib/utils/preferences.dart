@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:fake_news/models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,7 +8,8 @@ class Preferences{
 
   static const _theme = 'theme';
 
-  static const _user = 'user';
+
+  static const _token = 'token';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -29,24 +27,24 @@ class Preferences{
 
 //_______________________________________________________________________________
 //USER PREFERENCES
-  static Future setUser(User user) async {
-    String userString = jsonEncode(user.toJson());
-    return await _preferences.setString(_user, userString);
+  static Future setToken(String token) async {
+    return await _preferences.setString(_token, token);
   }
 
-  static User getUserPreference(){
-    String userString =_preferences.getString(_user).toString();
+  static String getTokenPreference(){
+    String? Token =_preferences.getString(_token).toString();
+    return Token;
+  }
 
-    if(userString==null||userString=="") {
-      return User();
-    }
-
-    User user = User.fromJsonMap(jsonDecode(userString));
-    return user;
+  static bool isLoggedIn(){
+    return _preferences.containsKey(_token);
   }
 
   static Future removeUser()async{
-    return await _preferences.remove(_user);
+    if(_preferences.containsKey(_token)) {
+      return await _preferences.remove(_token);
+    }
+    return Future(() => null);
   }
 
 //_______________________________________________________________________________

@@ -1,6 +1,13 @@
-import 'package:fake_news/Widgets/CustomAppBar.dart';
+import 'package:fake_news/Api/AuthAPI.dart';
+import 'package:fake_news/bloc/user/user_bloc.dart';
+import 'package:fake_news/utils/RouteHandler.dart';
+import 'package:fake_news/utils/Routes.dart';
+import 'package:fake_news/utils/preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../models/User.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -12,6 +19,11 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   bool obscure = true;
   bool checkBoxValue = false;
+  String email = '';
+  String password = '';
+  bool errorFlag = false;
+  String error = "";
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,6 +38,15 @@ class _SignInState extends State<SignIn> {
         const SizedBox(
           height: 30,
         ),
+        if (errorFlag)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            decoration: BoxDecoration(
+                color: Colors.redAccent,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red)),
+            child: Text(error),
+          ),
         Padding(
           padding: const EdgeInsets.all(16),
           child: Container(
@@ -37,6 +58,9 @@ class _SignInState extends State<SignIn> {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             child: TextField(
+              onChanged: (s) {
+                email = s;
+              },
               style: Theme.of(context).textTheme.bodyText2,
               decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.email,
@@ -59,6 +83,9 @@ class _SignInState extends State<SignIn> {
               children: [
                 Expanded(
                   child: TextField(
+                    onChanged: (s) {
+                      password = s;
+                    },
                     obscureText: obscure,
                     style: Theme.of(context).textTheme.bodyText2,
                     decoration: InputDecoration(
@@ -102,30 +129,38 @@ class _SignInState extends State<SignIn> {
           height: 15,
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Spacer(),
-            InkWell(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(
-                  AppLocalizations.of(context)!.forgotPassword,
-                  style: Theme.of(context).textTheme.subtitle1,
+            Container(
+              margin: const EdgeInsets.only(left: 100, right: 107),
+              child: InkWell(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    AppLocalizations.of(context)!.forgotPassword,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
                 ),
               ),
             ),
-            const Spacer(flex: 2)
           ],
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Spacer(flex: 4),
-            InkWell(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(
-                  AppLocalizations.of(context)!.createNewAccount,
-                  style: Theme.of(context).textTheme.subtitle1,
+            Container(
+              margin: const EdgeInsets.only(left: 100, right: 107),
+              child: InkWell(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    AppLocalizations.of(context)!.createNewAccount,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
                 ),
+                onTap: () {
+                  Navigator.of(context).pushNamedIfNotCurrent(SignUpRoute);
+                },
               ),
             ),
             const Spacer(flex: 11)
@@ -135,6 +170,7 @@ class _SignInState extends State<SignIn> {
           height: 35,
         ),
         InkWell(
+          onTap: _signIn,
           child: Container(
             margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
@@ -146,12 +182,40 @@ class _SignInState extends State<SignIn> {
               AppLocalizations.of(context)!.login,
               style: Theme.of(context).textTheme.bodyText1,
             ),
-          ),
+          )
         ),
         const SizedBox(
           height: 10,
         ),
       ],
     );
+  }
+  _signIn() async {
+    setState((){
+      errorFlag=false;
+      error='';
+    });
+    List res = await AuthAPI.login(User(email: email, password: password));
+    if (res.length == 1) {
+      setState(() {
+        errorFlag = true;
+        error = res[0];
+      });
+    } else {
+      if (checkBoxValue) {
+        Preferences.setToken(res[0]);
+      }
+      BlocProvider.of<UserBloc>(context).add(
+        UserLogin(
+          user: User(
+            name: res[1],
+            email: res[2],
+            id: res[3],
+          ),
+          token: res[0],
+        ),
+      );
+      Navigator.of(context).popAndPushNamed(HomeRoute);
+    }
   }
 }

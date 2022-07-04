@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
+import 'package:fake_news/utils/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -17,7 +16,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   SettingBloc()
       : super(SettingInitial(
             settings:
-                Settings(currentLocale: "en", themeMode: ThemeMode.light))) {
+                Settings(currentLocale: Preferences.getLanguage(), themeMode: Preferences.getThemePreference()))) {
     on<SetSetting>(_onSetSetting);
     on<ToggleTheme>(_onToggleTheme);
     on<ChangeLang>(_onChangeLang);

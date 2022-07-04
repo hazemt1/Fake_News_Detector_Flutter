@@ -1,11 +1,8 @@
 import 'package:fake_news/Widgets/AnimatedAppBar.dart';
 import 'package:fake_news/Widgets/CustomAppBar.dart';
 import 'package:fake_news/Widgets/CustomDrawer.dart';
-import 'package:fake_news/bloc/setting/setting_bloc.dart';
 import 'package:fake_news/utils/Routes.dart';
-import 'package:fake_news/utils/preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -47,10 +44,11 @@ class _HomeState extends State<Home> {
         children: [
           Expanded(
             child: Container(
+              height: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage("assets/pattern.png"),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
                     Theme.of(context).colorScheme.primary,
                     BlendMode.srcIn,
@@ -58,63 +56,65 @@ class _HomeState extends State<Home> {
                 ),
                 color: Theme.of(context).primaryColor,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.15,
-                    ),
-                    Text(
-                      "Welcome To Fake News Detector",
-                      style: Theme.of(context).textTheme.headline2,
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.04,
-                    ),
-                    Text(
-                      "The main goal of Fake News Detector Website is to tackle the growing issue of fake news, which has been increasing by the wide-spread "
-                      "use of social media to help people to be able to differentiate between fake news and fact ones.",
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          DetectorAnimatedRoute,
-                          arguments: {
-                            'appBar': AnimatedCustomAppBar(
-                              appBar: AppBar(),
-                            )
-                          },
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            borderRadius: BorderRadius.circular(20)),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 20),
-                        margin: const EdgeInsets.only(top: 30),
-                        child: Wrap(
-                          alignment: WrapAlignment.center,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 2.0, right: 8),
-                              child: Text(
-                                AppLocalizations.of(context)!.detect,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: Theme.of(context).primaryColor,
-                            )
-                          ],
-                        ),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.15,
                       ),
-                    )
-                  ],
+                      Text(
+                        "Welcome To Fake News Detector",
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.04,
+                      ),
+                      Text(
+                        "The main goal of Fake News Detector Website is to tackle the growing issue of fake news, which has been increasing by the wide-spread "
+                        "use of social media to help people to be able to differentiate between fake news and fact ones.",
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            DetectorAnimatedRoute,
+                            arguments: {
+                              'appBar': AnimatedCustomAppBar(
+                                appBar: AppBar(),
+                              )
+                            },
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              borderRadius: BorderRadius.circular(20)),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                          margin: const EdgeInsets.only(top: 30),
+                          child: Wrap(
+                            alignment: WrapAlignment.center,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 2.0, right: 8),
+                                child: Text(
+                                  AppLocalizations.of(context)!.detect,
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Theme.of(context).primaryColor,
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
