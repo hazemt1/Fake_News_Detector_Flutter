@@ -1,6 +1,6 @@
-import 'package:fake_news/Widgets/CustomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../ResetPassword/ForgetPassword.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -70,7 +70,7 @@ class _SignInState extends State<SignIn> {
                 IconButton(
                   onPressed: () {
                     setState(
-                      () {
+                          () {
                         obscure = !obscure;
                       },
                     );
@@ -105,6 +105,12 @@ class _SignInState extends State<SignIn> {
           children: [
             const Spacer(),
             InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ForgetPassword()),
+                );
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8),
                 child: Text(

@@ -1,4 +1,4 @@
-import 'package:fake_news/Screens/ResetPassword/EnterPassword.dart';
+import 'package:fake_news/Screens/ResetPassword/EnterNewPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fake_news/Widgets/CustomAppBar.dart';
@@ -73,7 +73,7 @@ class _OtpFormState extends State<OtpForm> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => EnterPassword()),
+                            MaterialPageRoute(builder: (context) => const EnterNewPassword()),
                           );
                         },
                       ),
