@@ -26,5 +26,9 @@
   "enterPassword" : "Please enter password",
   "enterEmail" : "Please enter email",
   "enterName" : "Please enter name",
-  "password8char" : "password should be at least 8 characters"
+  "password8char" : "password should be at least 8 characters",
+  "resetPassword" : "Reset Password",
+  "otpMsg" : "An otp code will be sent to your email",
+  "enterOtp": "Enter your otp code",
+  "enter": "Enter"
 }
