@@ -2,9 +2,10 @@ import 'package:fake_news/Widgets/CustomAppBar.dart';
 import 'package:fake_news/Widgets/CustomDrawer.dart';
 import 'package:flutter/material.dart';
 
-class Sign extends StatelessWidget {
-  Widget inUp;
-  Sign({Key? key,required this.inUp}) : super(key: key);
+class CommonScreen extends StatelessWidget {
+  final Widget widget;
+  final Widget? actionButton;
+  const CommonScreen({Key? key, required this.widget,this.actionButton}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,7 @@ class Sign extends StatelessWidget {
       appBar: CustomAppBar(
         appBar: AppBar(),
       ),
+      floatingActionButton: actionButton,
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(
         decoration: BoxDecoration(
@@ -25,25 +27,7 @@ class Sign extends StatelessWidget {
             ),
           ),
         ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Container(
-              // height: MediaQuery.of(context).size.height * 0.6,
-              // height: 660,
-              width: 500,
-              decoration: BoxDecoration(
-                color: Theme.of(context).shadowColor,
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-              ),
-              child:  Wrap(
-                alignment: WrapAlignment.center,
-                children: [
-                  inUp,
-                ],
-              ),
-            ),
-          ),
-        ),
+        child: Center(child: widget),
       ),
     );
   }

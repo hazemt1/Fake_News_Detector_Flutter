@@ -25,6 +25,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
     reviews = await ReviewApi.getAllReviews(
         BlocProvider.of<UserBloc>(context).state.logInfo.token!);
     // setState(() {});
+    reviews=reviews.reversed.toList();
     return reviews;
   }
 
@@ -42,8 +43,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
         Navigator.of(context).pushNamed(homeRoute);
       });
     } else {
-      _getReviews();
       _getReview();
+      _getReviews();
     }
   }
 
@@ -60,28 +61,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
       appBar: CustomAppBar(
         appBar: AppBar(),
       ),
-      floatingActionButton: InkWell(
-        onTap: () {
-          showDialog(
-            context: context,
-            builder: (context){
-              return CreateNewReview(
-                userRating: review?.rate,
-                userReview: review?.review,
-                callback: onAddReview,
-              );
-            });
-
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Text(AppLocalizations.of(context)!.addReview),
-        ),
-      ),
+      floatingActionButton: actionButton(context),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -118,6 +98,31 @@ class _ReviewScreenState extends State<ReviewScreen> {
             }
           },
         ),
+      ),
+    );
+  }
+
+  InkWell actionButton(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context){
+            return CreateNewReview(
+              userRating: review?.rate,
+              userReview: review?.review,
+              callback: onAddReview,
+            );
+          });
+
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Text(AppLocalizations.of(context)!.addReview),
       ),
     );
   }

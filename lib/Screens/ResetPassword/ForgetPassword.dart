@@ -11,90 +11,109 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
-  bool errorFlag =false;
-  String error='';
-  String email='';
+  bool errorFlag = false;
+  String error = '';
+  String email = '';
   @override
   Widget build(BuildContext context) {
-    return  Column(
-        children: [
-          AlertDialog(
-            // backgroundColor: Theme.of(context).primaryColor,
-            backgroundColor: Colors.transparent,
-            title: Center(
-              child: Text(
-                AppLocalizations.of(context)!.enterEmail,
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
-            ),
-            actions: [
-              if(errorFlag)
-                Center(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.redAccent,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.red)),
-                    child: Text(error),
-                  ),
-                ),
-              TextField(
-                onChanged: (t){
-                  email=t;
-                },
-                style: Theme.of(context).textTheme.bodyText2,
-                decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.email,
-                    hintStyle: Theme.of(context).textTheme.subtitle1),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Center(
-                child: ButtonTheme(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      shape:
-                      MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
+    return Center(
+      child: SingleChildScrollView(
+        child: Container(
+          // height: MediaQuery.of(context).size.height * 0.6,
+          // height: 660,
+          width: 500,
+          decoration: BoxDecoration(
+            color: Theme.of(context).shadowColor,
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            children: [
+              Column(
+                children: [
+                  AlertDialog(
+                    // backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: Colors.transparent,
+                    title: Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.enterEmail,
+                        style: Theme.of(context).textTheme.bodyText2,
                       ),
                     ),
-                    child: Text(
-                      AppLocalizations.of(context)!.resetPassword,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                    onPressed: () async{
-                      setState((){
-                        errorFlag=false;
-                        error='';
-                      });
-                      String res = await AuthAPI.forgetPassword(email);
-                      print(res);
-                      if(res!=''){
-                        setState((){
-                          errorFlag=true;
-                          error=res;
-                        });
-                      }
-                      else{
-                        Navigator.of(context).pushNamed(enterNewPasswordRoute);
-                      }
-                    },
+                    actions: [
+                      if (errorFlag)
+                        Center(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            decoration: BoxDecoration(
+                                color: Colors.redAccent,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.red)),
+                            child: Text(error),
+                          ),
+                        ),
+                      TextField(
+                        onChanged: (t) {
+                          email = t;
+                        },
+                        style: Theme.of(context).textTheme.bodyText2,
+                        decoration: InputDecoration(
+                            hintText: AppLocalizations.of(context)!.email,
+                            hintStyle: Theme.of(context).textTheme.subtitle1),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Center(
+                        child: ButtonTheme(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40.0),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)!.resetPassword,
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
+                            onPressed: () async {
+                              setState(() {
+                                errorFlag = false;
+                                error = '';
+                              });
+                              String res = await AuthAPI.forgetPassword(email);
+                              print(res);
+                              if (res != '') {
+                                setState(() {
+                                  errorFlag = true;
+                                  error = res;
+                                });
+                              } else {
+                                Navigator.of(context)
+                                    .pushNamed(enterNewPasswordRoute);
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Center(
+                        child: Text(AppLocalizations.of(context)!.otpMsg),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Center(
-                child: Text(AppLocalizations.of(context)!.otpMsg),
+                ],
               ),
             ],
           ),
-        ],
+        ),
+      ),
     );
   }
 }

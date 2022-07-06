@@ -9,3 +9,5 @@ const reviewRoute ='/reviews';
 const forgetPasswordRoute= '/forgetPassword';
 const otpRoute ='/otp';
 const enterNewPasswordRoute = '/enterNewPassword';
+const searchedNewsRoute = '/searchedNews';
+const historyRoute = '/history';

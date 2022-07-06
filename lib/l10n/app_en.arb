@@ -39,5 +39,8 @@
   "addReview": "Add Review",
   "submit": "Submit",
   "cancel": "Cancel",
-  "deleteReview": "Delete Review"
+  "deleteReview": "Delete Review",
+  "delete": "Delete",
+  "news": "News: ",
+  "noHistory": "You didn't detect any news."
 }

@@ -29,88 +29,110 @@ class _SignUpState extends State<SignUp> {
   bool obscure = true;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 50,
-        ),
-        Text(
-          AppLocalizations.of(context)!.signUp,
-          style: Theme.of(context).textTheme.headline3,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        if (errorFlag)
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-                color: Colors.redAccent,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.red)),
-            child: Text(error),
+    return Center(
+      child: SingleChildScrollView(
+        child: Container(
+          // height: MediaQuery.of(context).size.height * 0.6,
+          // height: 660,
+          width: 500,
+          decoration: BoxDecoration(
+            color: Theme.of(context).shadowColor,
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
           ),
-        const SizedBox(
-          height: 15,
-        ),
-        Form(
-          key: _registerFormKey,
-          child: Column(
+          child: Wrap(
+            alignment: WrapAlignment.center,
             children: [
-              //Name Widget
-              formTextField(
-                context: context,
-                field: "userName",
-                hintText: AppLocalizations.of(context)!.name,
-                validator: usernameValidation,
-              ),
-              //Email Widget
-              formTextField(
-                context: context,
-                field: "email",
-                hintText: AppLocalizations.of(context)!.email,
-                validator: usernameValidation,
-              ),
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.signUp,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  if (errorFlag)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.red)),
+                      child: Text(error),
+                    ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Form(
+                    key: _registerFormKey,
+                    child: Column(
+                      children: [
+                        //Name Widget
+                        formTextField(
+                          context: context,
+                          field: "userName",
+                          hintText: AppLocalizations.of(context)!.name,
+                          validator: usernameValidation,
+                        ),
+                        //Email Widget
+                        formTextField(
+                          context: context,
+                          field: "email",
+                          hintText: AppLocalizations.of(context)!.email,
+                          validator: usernameValidation,
+                        ),
 
-              //Password Widget
-              passwordWidget(
-                context: context,
-                validator: passwordValidation,
-                hintText: AppLocalizations.of(context)!.password,
-                field: "password",
-              ),
-              //Confirm Password Widget
-              passwordWidget(
-                context: context,
-                validator: confirmPasswordValidation,
-                hintText: AppLocalizations.of(context)!.confirmPassword,
-                field: "confirm password",
+                        //Password Widget
+                        passwordWidget(
+                          context: context,
+                          validator: passwordValidation,
+                          hintText: AppLocalizations.of(context)!.password,
+                          field: "password",
+                        ),
+                        //Confirm Password Widget
+                        passwordWidget(
+                          context: context,
+                          validator: confirmPasswordValidation,
+                          hintText:
+                              AppLocalizations.of(context)!.confirmPassword,
+                          field: "confirm password",
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  InkWell(
+                    onTap: createAccount,
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 42, vertical: 12),
+                      child: Text(
+                        AppLocalizations.of(context)!.register,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
               ),
             ],
           ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
-        InkWell(
-          onTap: createAccount,
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 12),
-            child: Text(
-              AppLocalizations.of(context)!.register,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-      ],
+      ),
     );
   }
 
@@ -232,8 +254,8 @@ class _SignUpState extends State<SignUp> {
       error = '';
     });
     if (_registerFormKey.currentState?.validate() == true) {
-      List res =
-          await AuthAPI.signup(User(email: email, password: password,name: userName));
+      List res = await AuthAPI.signup(
+          User(email: email, password: password, name: userName));
       if (res.length == 1) {
         setState(() {
           errorFlag = true;

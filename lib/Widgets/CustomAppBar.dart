@@ -53,12 +53,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
       ),
       AppBarItem(
         text: AppLocalizations.of(context)!.searchedNews,
-        function: () {},
+        function: () {
+          Navigator.of(context).pushNamedIfNotCurrent(searchedNewsRoute);
+        },
       ),
       if (BlocProvider.of<UserBloc>(context).state.logInfo.isLoggedIn)
         AppBarItem(
           text: AppLocalizations.of(context)!.history,
-          function: () {},
+          function: () {
+            Navigator.of(context).pushNamedIfNotCurrent(historyRoute);
+          },
         ),
       if (BlocProvider.of<UserBloc>(context).state.logInfo.isLoggedIn)
         AppBarItem(
@@ -75,15 +79,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
           automaticallyImplyLeading: false,
           centerTitle: MediaQuery.of(context).size.width > 600 ? false : true,
           leading: (MediaQuery.of(context).size.width > 1117 &&
-              BlocProvider.of<UserBloc>(context)
-                  .state
-                  .logInfo
-                  .isLoggedIn) ||
-              (MediaQuery.of(context).size.width > 998 &&
-                  !BlocProvider.of<UserBloc>(context)
-                      .state
-                      .logInfo
-                      .isLoggedIn)
+                      BlocProvider.of<UserBloc>(context)
+                          .state
+                          .logInfo
+                          .isLoggedIn) ||
+                  (MediaQuery.of(context).size.width > 998 &&
+                      !BlocProvider.of<UserBloc>(context)
+                          .state
+                          .logInfo
+                          .isLoggedIn)
               ? null
               : Builder(
                   builder: (context) => // Ensure Scaffold is in context
@@ -103,7 +107,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 },
                 child: Text(
                   AppLocalizations.of(context)!.logo,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: MediaQuery.of(context).size.width < 700
+                      ? Theme.of(context).textTheme.headline5
+                      : Theme.of(context).textTheme.headline1,
                 ),
               ),
               if (MediaQuery.of(context).size.width > 600) const Spacer(),
@@ -114,9 +120,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           .isLoggedIn) ||
                   (MediaQuery.of(context).size.width > 998 &&
                       !BlocProvider.of<UserBloc>(context)
-                      .state
-                      .logInfo
-                      .isLoggedIn))
+                          .state
+                          .logInfo
+                          .isLoggedIn))
                 Container(
                   constraints: const BoxConstraints(maxHeight: 50),
                   child: ListView.builder(
@@ -163,12 +169,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     Preferences.removeUser();
                     BlocProvider.of<UserBloc>(context).add(const UserLogout());
                   });
-                  if(Navigator.of(context).isCurrent(reviewRoute)){
+                  if (Navigator.of(context).isCurrent(reviewRoute)) {
                     Navigator.of(context).popAndPushNamed(homeRoute);
                   }
-
-
-
                 },
               ),
           ],

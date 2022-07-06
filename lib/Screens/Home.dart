@@ -15,22 +15,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  // @override
-  // void initState(){
-  //   super.initState();
-  //   _loadSetting();
-  // }
-  //
-  // _loadSetting() async {
-  //   BlocProvider.of<SettingBloc>(context).add(
-  //     SetSetting(
-  //       settings: Settings(
-  //         themeMode: Preferences.getThemePreference(),
-  //         currentLocale: Preferences.getLanguage(),
-  //       ),
-  //     ),
-  //   );
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +46,12 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
+                      MediaQuery.of(context).size.height>1000?
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.15,
+                      ):
+                      const SizedBox(
+                        height: 20,
                       ),
                       Text(
                         "Welcome To Fake News Detector",

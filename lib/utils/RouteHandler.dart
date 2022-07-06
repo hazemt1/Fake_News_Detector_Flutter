@@ -1,16 +1,17 @@
+import 'package:fake_news/Screens/CommonScreen.dart';
 import 'package:fake_news/Screens/Detector.dart';
 import 'package:fake_news/Screens/Home.dart';
 import 'package:fake_news/Screens/ResetPassword/EnterNewPassword.dart';
 import 'package:fake_news/Screens/ResetPassword/ForgetPassword.dart';
 import 'package:fake_news/Screens/Review/ReviewScreen.dart';
+import 'package:fake_news/Screens/SearchHistory/HistoryScreen.dart';
+import 'package:fake_news/Screens/SearchHistory/SearchedNews.dart';
 import 'package:fake_news/Screens/Sign/SignIn.dart';
 import 'package:fake_news/Screens/Sign/SignUp.dart';
 import 'package:fake_news/Screens/Trending/Trending.dart';
 import 'package:fake_news/utils/CustomPageRoute.dart';
 import 'package:fake_news/utils/Routes.dart';
 import 'package:flutter/material.dart';
-
-import '../Screens/Sign/Sign.dart';
 
 class RouteHandler {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -30,10 +31,12 @@ class RouteHandler {
         );
       case signInRoute:
         return MaterialPageRoute(
-            builder: (_) => Sign(inUp: const SignIn()), settings: settings);
+            builder: (_) => const CommonScreen(widget: SignIn()),
+            settings: settings);
       case signUpRoute:
         return MaterialPageRoute(
-            builder: (_) => Sign(inUp: const SignUp()), settings: settings);
+            builder: (_) => const CommonScreen(widget: SignUp()),
+            settings: settings);
       case trendingRoute:
         return MaterialPageRoute(
             builder: (_) => const TrendingScreen(), settings: settings);
@@ -42,14 +45,25 @@ class RouteHandler {
             builder: (_) => const ReviewScreen(), settings: settings);
       case forgetPasswordRoute:
         return MaterialPageRoute(
-            builder: (_) => Sign(inUp: const ForgetPassword()),
-            settings: settings);
+          builder: (_) => const CommonScreen(widget: ForgetPassword()),
+          settings: settings,
+        );
+      case searchedNewsRoute:
+        return MaterialPageRoute(
+          builder: (_) => const CommonScreen(widget: SearchedNews()),
+          settings: settings,
+        );
+        case historyRoute:
+        return MaterialPageRoute(
+          builder: (_) => const CommonScreen(widget: HistoryScreen()),
+          settings: settings,
+        );
 
       case enterNewPasswordRoute:
         {
           return MaterialPageRoute(
-              builder: (_) => Sign(
-                    inUp: const EnterNewPassword(),
+              builder: (_) => const CommonScreen(
+                    widget: EnterNewPassword(),
                   ),
               settings: settings);
         }

@@ -65,7 +65,6 @@ class ReviewApi {
     };
     final response = await http.patch(uri,body: jsonEncode(review.toJson()), headers: headers);
     final body = jsonDecode(response.body);
-    print(body);
     if (response.statusCode >= 200 && response.statusCode < 400) {
       return '';
     }  else {

@@ -16,6 +16,11 @@ class MyThemeData {
         color: Colors.black,
         // fontWeight: FontWeight.bold
       ),
+      headline5: GoogleFonts.lobster(
+        fontSize: 25,
+        color: Colors.black,
+        // fontWeight: FontWeight.bold
+      ),
       headline2: GoogleFonts.lobster(
         fontSize: 40,
         color: Colors.black,
@@ -54,6 +59,7 @@ class MyThemeData {
 
     ),
 
+
     iconTheme: IconThemeData(color: HexColor('#000000')),
     primaryColor: HexColor('#ffffff'),
     shadowColor: HexColor('#c8d8e4'),
@@ -73,6 +79,12 @@ class MyThemeData {
           color: Colors.white,
           // fontWeight: FontWeight.bold
         ),
+      headline5: GoogleFonts.lobster(
+          fontSize: 25,
+          color: Colors.white,
+          // fontWeight: FontWeight.bold
+        ),
+
       headline2: GoogleFonts.lobster(
         fontSize: 40,
         color: Colors.white,
