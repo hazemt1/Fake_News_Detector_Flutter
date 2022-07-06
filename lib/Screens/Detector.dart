@@ -64,8 +64,9 @@ class _DetectorState extends State<Detector> {
                             : double.infinity,
                         decoration: BoxDecoration(
                           color: Theme.of(context).shadowColor,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
                         ),
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         child: Padding(
@@ -74,8 +75,7 @@ class _DetectorState extends State<Detector> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(
-                                height:
-                                    50,
+                                height: 50,
                               ),
                               Center(
                                 child: Text(
@@ -101,7 +101,8 @@ class _DetectorState extends State<Detector> {
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).primaryColor,
                                   borderRadius: const BorderRadius.all(
-                                      Radius.circular(20)),
+                                    Radius.circular(20),
+                                  ),
                                 ),
                                 child: TextField(
                                   onChanged: (t) {
@@ -110,20 +111,25 @@ class _DetectorState extends State<Detector> {
                                   maxLines: null,
                                   style: Theme.of(context).textTheme.bodyText2,
                                   decoration: const InputDecoration(
-                                      border: InputBorder.none),
+                                    border: InputBorder.none,
+                                  ),
                                 ),
                               ),
                               Row(
                                 children: [
                                   if (_detect)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 5),
-                                            decoration: BoxDecoration(
+                                    Expanded(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 5),
+                                              decoration: BoxDecoration(
                                                 color: tf
                                                     ? Colors.greenAccent
                                                     : Colors.redAccent,
@@ -133,29 +139,37 @@ class _DetectorState extends State<Detector> {
                                                   color: tf
                                                       ? Colors.greenAccent
                                                       : Colors.redAccent,
-                                                )),
-                                            child: Text(tf
-                                                ? AppLocalizations.of(context)!
-                                                    .fact
-                                                : AppLocalizations.of(context)!
-                                                    .fake),
-                                          ),
-                                          const SizedBox(width: 10,),
-
-                                          Column(
-                                            children: [
-                                              Text(
-                                                AppLocalizations.of(context)!
-                                                        .confidence,
-                                                maxLines: 5,
+                                                ),
                                               ),
-                                              Text(_result.toStringAsFixed(2)),
-                                            ],
-                                          ),
+                                              child: Text(
+                                                tf
+                                                    ? AppLocalizations.of(
+                                                            context)!
+                                                        .fact
+                                                    : AppLocalizations.of(
+                                                            context)!
+                                                        .fake,
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                AppLocalizations.of(context)!
+                                                        .confidence +
+                                                    _result.toStringAsFixed(2),
 
-                                        ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
+                                  if (!_detect)
                                   const Spacer(),
                                   InkWell(
                                     onTap: () async {
@@ -206,7 +220,6 @@ class _DetectorState extends State<Detector> {
                                   ),
                                 ],
                               ),
-                              // const Spacer(),
                             ],
                           ),
                         ),

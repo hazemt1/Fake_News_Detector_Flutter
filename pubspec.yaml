@@ -36,12 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.4
   google_fonts: ^2.3.1
   hexcolor: ^2.0.6
+  flutter_rating_bar: ^4.0.1
   flutter_svg: ^1.0.3
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
   flutter_bloc: ^8.0.1
-  dropdown_button2: ^1.5.1
   cached_network_image: ^3.1.0
   url_launcher: ^6.1.2
   shared_preferences: ^2.0.15

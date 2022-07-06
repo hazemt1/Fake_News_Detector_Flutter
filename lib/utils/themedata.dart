@@ -61,6 +61,7 @@ class MyThemeData {
       primary: HexColor('#55C57A'),
       secondary: HexColor('#f2f2f2'),
       onPrimary: HexColor('#FFFFFF'),
+      onSecondary: Colors.black
     ),
   );
   static final darkTheme = ThemeData(
@@ -110,10 +111,13 @@ class MyThemeData {
     ),
     bottomSheetTheme:
         const BottomSheetThemeData(backgroundColor: Colors.white12),
+
     iconTheme: IconThemeData(color: HexColor('#ffffff')),
     primaryColor: HexColor('#252836'),
     shadowColor: HexColor('#393C49'),
+
     colorScheme: ColorScheme.fromSwatch().copyWith(
+        onSecondary:  Colors.white,
         primary: HexColor('#52ab98'),
         secondary: HexColor('#EA7C69'),
         onPrimary: HexColor('#1F1D2B'),

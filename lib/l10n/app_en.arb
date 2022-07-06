@@ -34,5 +34,10 @@
   "enter": "Enter",
   "fake": "FAKE",
   "fact": "FACT",
-  "confidence": "With Confidence: "
+  "confidence": "With Confidence: ",
+  "rating": "Rating: ",
+  "addReview": "Add Review",
+  "submit": "Submit",
+  "cancel": "Cancel",
+  "deleteReview": "Delete Review"
 }

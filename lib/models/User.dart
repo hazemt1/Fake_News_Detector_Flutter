@@ -15,7 +15,7 @@ class User{
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     if(id!=null) {
-      data['id'] = id;
+      data['_id'] = id;
     }
     if(name!=null) {
       data['name'] = name;
@@ -32,9 +32,9 @@ class User{
         password = map["password"] ?? '';
 
 
-  static logout(BuildContext context){
-    Preferences.removeUser();
-    BlocProvider.of<UserBloc>(context).add(const UserLogout());
-  }
+  // static logout(BuildContext context){
+  //   Preferences.removeUser();
+  //   BlocProvider.of<UserBloc>(context).add(const UserLogout());
+  // }
 
 }

@@ -42,7 +42,6 @@ class AuthAPI {
       'Content-Type': 'application/json',
     };
     var body = user.toJson();
-    print(body);
     final response =
         await http.post(uri, body: jsonEncode(body), headers: headers);
 
@@ -65,7 +64,6 @@ class AuthAPI {
 
   static Future<String> forgetPassword(String email) async {
     final uri = Uri.https(mainUrl, 'api/v1/users/forgotPassword');
-    List<String> info = List.empty(growable: true);
     Map<String, String> headers = {
       'Content-Type': 'application/json',
     };
@@ -83,7 +81,6 @@ class AuthAPI {
   }
 
   static Future<List<String>> resetPassword(String otp, String password) async {
-    print(password);
     final uri = Uri.https(mainUrl, 'api/v1/users/resetPassword/$otp');
     List<String> info = List.empty(growable: true);
     Map<String, String> headers = {
@@ -136,7 +133,7 @@ class AuthAPI {
       (response) {
         if (response.statusCode >= 200 && response.statusCode < 400) {
           var decoded = jsonDecode(response.body);
-          print(decoded);
+
           User loggedUser = User.fromJsonMap(decoded['data']);
           return loggedUser;
         } else {
