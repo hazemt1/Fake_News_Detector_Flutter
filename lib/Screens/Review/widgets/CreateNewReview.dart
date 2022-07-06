@@ -102,7 +102,9 @@ class _CreateNewReviewState extends State<CreateNewReview> {
               const SizedBox(
                 height: 30,
               ),
-              Row(
+              Wrap(
+                spacing: 20,
+                runSpacing: 20,
                 children: [
                   InkWell(
                     onTap: () async {
@@ -147,6 +149,7 @@ class _CreateNewReviewState extends State<CreateNewReview> {
                   ),
                   const Spacer(),
                   if (widget.userReview != null)
+
                     InkWell(
                       onTap: (){
                         ReviewApi.deleteReview(BlocProvider.of<UserBloc>(context).state.logInfo.token!,);
