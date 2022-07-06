@@ -74,9 +74,12 @@ class _DetectorState extends State<Detector> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              MediaQuery.of(context).size.height >1000?
                               const SizedBox(
                                 height: 50,
-                              ),
+                              ):const SizedBox(
+                              height: 10,
+                        ),
                               Center(
                                 child: Text(
                                   AppLocalizations.of(context)!.detectNews,

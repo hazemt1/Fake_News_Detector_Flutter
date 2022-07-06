@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fake_news/bloc/setting/setting_bloc.dart';
 import 'package:fake_news/models/Article.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
@@ -107,8 +109,12 @@ class _NewsItemState extends State<NewsItem> {
                 Text(
                   date.day == DateTime.now().day
                       ? DateFormat.Hms().format(date) +
-                          DateFormat.MMMMEEEEd().format(date)
-                      : DateFormat.MMMMEEEEd().format(date),
+                          DateFormat.MMMMEEEEd(
+                            BlocProvider.of<SettingBloc>(context).state.settings.currentLocale,
+                          ).format(date)
+                      : DateFormat.MMMMEEEEd(
+                    BlocProvider.of<SettingBloc>(context).state.settings.currentLocale,
+                  ).format(date),
                   style: Theme.of(context).textTheme.bodyText2,
                   textAlign: TextAlign.end,
                 ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -54,15 +55,14 @@ class _HomeState extends State<Home> {
                         height: 20,
                       ),
                       Text(
-                        "Welcome To Fake News Detector",
+                        AppLocalizations.of(context)!.homeScreenHeader,
                         style: Theme.of(context).textTheme.headline2,
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.04,
                       ),
                       Text(
-                        "The main goal of Fake News Detector Website is to tackle the growing issue of fake news, which has been increasing by the wide-spread "
-                        "use of social media to help people to be able to differentiate between fake news and fact ones.",
+                        AppLocalizations.of(context)!.homeScreenBody,
                         style: Theme.of(context).textTheme.headline4,
                       ),
                       InkWell(

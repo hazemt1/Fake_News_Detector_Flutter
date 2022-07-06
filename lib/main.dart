@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: AppLocalizations.supportedLocales,
-              title: 'Flutter Demo',
+              title: 'Fake News Detector',
               theme: MyThemeData.lightTheme,
               darkTheme: MyThemeData.darkTheme,
               locale: Locale.fromSubtags(
