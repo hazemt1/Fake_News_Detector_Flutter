@@ -56,14 +56,18 @@ class _HomeState extends State<Home> {
                       ),
                       Text(
                         AppLocalizations.of(context)!.homeScreenHeader,
-                        style: Theme.of(context).textTheme.headline2,
+                        style: MediaQuery.of(context).size.height >600
+                            ? Theme.of(context).textTheme.headline4
+                            : Theme.of(context).textTheme.headline5,
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.04,
                       ),
                       Text(
                         AppLocalizations.of(context)!.homeScreenBody,
-                        style: Theme.of(context).textTheme.headline4,
+                        style:MediaQuery.of(context).size.width >600 && MediaQuery.of(context).size.height >600
+                            ? Theme.of(context).textTheme.headline4
+                            : Theme.of(context).textTheme.headline5,
                       ),
                       InkWell(
                         onTap: () {

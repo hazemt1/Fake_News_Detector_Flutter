@@ -103,7 +103,7 @@ class _CreateNewReviewState extends State<CreateNewReview> {
                 height: 30,
               ),
               Wrap(
-                spacing: 20,
+                spacing: 10,
                 runSpacing: 20,
                 children: [
                   InkWell(
@@ -117,7 +117,6 @@ class _CreateNewReviewState extends State<CreateNewReview> {
                           Review(review: review, rate: rating),
                         );
                       }else{
-                        print(rating);
                         res = await ReviewApi.updateReview(
                           BlocProvider.of<UserBloc>(context).state.logInfo.token!,
                           Review(review: review, rate: rating),

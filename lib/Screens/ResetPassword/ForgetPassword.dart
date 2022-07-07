@@ -34,6 +34,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   AlertDialog(
                     // backgroundColor: Theme.of(context).primaryColor,
                     backgroundColor: Colors.transparent,
+                    elevation: 0,
                     title: Center(
                       child: Text(
                         AppLocalizations.of(context)!.enterEmail,
@@ -86,7 +87,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                                 error = '';
                               });
                               String res = await AuthAPI.forgetPassword(email);
-                              print(res);
                               if (res != '') {
                                 setState(() {
                                   errorFlag = true;

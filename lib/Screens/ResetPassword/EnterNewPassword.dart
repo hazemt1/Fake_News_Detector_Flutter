@@ -44,6 +44,7 @@ class _EnterNewPasswordState extends State<EnterNewPassword> {
                 children: [
                   AlertDialog(
                     backgroundColor: Colors.transparent,
+                    elevation: 0,
                     title: Center(
                       child: Text(
                         AppLocalizations.of(context)!.enterPassword,

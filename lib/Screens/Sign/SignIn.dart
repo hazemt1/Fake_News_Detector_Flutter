@@ -149,10 +149,10 @@ class _SignInState extends State<SignIn> {
                     height: 15,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MediaQuery.of(context).size.width<500?MainAxisAlignment.center:MainAxisAlignment.start,
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(left: 100, right: 107),
+                        margin: MediaQuery.of(context).size.width>500? const EdgeInsets.only(left: 100, right: 107):null,
                         child: InkWell(
                           onTap: () {
                             Navigator.of(context)
@@ -170,10 +170,10 @@ class _SignInState extends State<SignIn> {
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MediaQuery.of(context).size.width<500?MainAxisAlignment.center:MainAxisAlignment.start,
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(left: 100, right: 107),
+                        margin: MediaQuery.of(context).size.width>500? const EdgeInsets.only(left: 100, right: 107):null,
                         child: InkWell(
                           child: Padding(
                             padding: const EdgeInsets.all(8),
@@ -188,7 +188,6 @@ class _SignInState extends State<SignIn> {
                           },
                         ),
                       ),
-                      const Spacer(flex: 11)
                     ],
                   ),
                   const SizedBox(
