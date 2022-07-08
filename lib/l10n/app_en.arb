@@ -43,5 +43,7 @@
   "deleteReview": "Delete Review",
   "delete": "Delete",
   "news": "News: ",
-  "noHistory": "You didn't detect any news."
+  "noHistory": "You didn't detect any news.",
+  "avgRating": "Average Rating: ",
+  "enterNews": "Please Enter News"
 }

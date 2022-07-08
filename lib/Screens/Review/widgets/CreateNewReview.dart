@@ -53,7 +53,10 @@ class _CreateNewReviewState extends State<CreateNewReview> {
                       color: Colors.redAccent,
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.red)),
-                  child: Text(error,style: Theme.of(context).textTheme.bodyText1,),
+                  child: Text(
+                    error,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
                 ),
               const SizedBox(
                 height: 20,
@@ -110,25 +113,31 @@ class _CreateNewReviewState extends State<CreateNewReview> {
                     onTap: () async {
                       errorFlag = false;
                       error = "";
-                      String res='';
-                      if(widget.userReview == null){
+                      String res = '';
+                      if (widget.userReview == null) {
                         res = await ReviewApi.createReview(
-                          BlocProvider.of<UserBloc>(context).state.logInfo.token!,
+                          BlocProvider.of<UserBloc>(context)
+                              .state
+                              .logInfo
+                              .token!,
                           Review(review: review, rate: rating),
                         );
-                      }else{
+                      } else {
                         res = await ReviewApi.updateReview(
-                          BlocProvider.of<UserBloc>(context).state.logInfo.token!,
+                          BlocProvider.of<UserBloc>(context)
+                              .state
+                              .logInfo
+                              .token!,
                           Review(review: review, rate: rating),
                         );
                       }
 
-                      if(res!=''){
-                        setState((){
-                          errorFlag=true;
-                          error=res;
+                      if (res != '') {
+                        setState(() {
+                          errorFlag = true;
+                          error = res;
                         });
-                      }else{
+                      } else {
                         widget.callback();
                         Navigator.of(context).pop();
                       }
@@ -148,10 +157,14 @@ class _CreateNewReviewState extends State<CreateNewReview> {
                   ),
                   const Spacer(),
                   if (widget.userReview != null)
-
                     InkWell(
-                      onTap: (){
-                        ReviewApi.deleteReview(BlocProvider.of<UserBloc>(context).state.logInfo.token!,);
+                      onTap: () {
+                        ReviewApi.deleteReview(
+                          BlocProvider.of<UserBloc>(context)
+                              .state
+                              .logInfo
+                              .token!,
+                        );
                         widget.callback();
                         Navigator.of(context).pop();
                       },

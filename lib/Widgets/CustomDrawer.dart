@@ -64,7 +64,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
           },
         )
     ];
-    print(MediaQuery.of(context).size.height);
     return Drawer(
       backgroundColor: Colors.transparent,
       child: Container(

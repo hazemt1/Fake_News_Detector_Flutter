@@ -83,7 +83,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           .state
                           .logInfo
                           .isLoggedIn) ||
-                  (MediaQuery.of(context).size.width > 998 &&
+                  (MediaQuery.of(context).size.width > 1030 &&
                       !BlocProvider.of<UserBloc>(context)
                           .state
                           .logInfo
@@ -118,7 +118,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           .state
                           .logInfo
                           .isLoggedIn) ||
-                  (MediaQuery.of(context).size.width > 998 &&
+                  (MediaQuery.of(context).size.width > 1030 &&
                       !BlocProvider.of<UserBloc>(context)
                           .state
                           .logInfo

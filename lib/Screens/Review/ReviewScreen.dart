@@ -10,6 +10,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ReviewScreen extends StatefulWidget {
   const ReviewScreen({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
     reviews = await ReviewApi.getAllReviews(
         BlocProvider.of<UserBloc>(context).state.logInfo.token!);
     // setState(() {});
-    reviews=reviews.reversed.toList();
+    reviews = reviews.reversed.toList();
     return reviews;
   }
 
@@ -48,7 +49,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
     }
   }
 
-  onAddReview()async {
+  onAddReview() async {
     _getReview();
     _getReviews();
     setState(() {});
@@ -80,18 +81,71 @@ class _ReviewScreenState extends State<ReviewScreen> {
           future: _getReviews(),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) {
-                  return Center(
-                    child: ReviewItem(
-                      date: snapshot.data![index].date!,
-                      name: snapshot.data![index].userName ?? '',
-                      rate: snapshot.data![index].rate,
-                      review: snapshot.data![index].review,
+              double rating = 0;
+              for (int i = 0; i < snapshot.data.length; i++) {
+                rating += snapshot.data[i].rate;
+              }
+              rating = rating / (snapshot.data.length);
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      width: 1000,
+                      constraints: const BoxConstraints(
+                        minWidth: 500,
+                        maxWidth: 2000,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).shadowColor,
+                        borderRadius: const BorderRadius.only(
+                          bottomRight: Radius.circular(16),
+                          bottomLeft: Radius.circular(16),
+                        ),
+                      ),
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.avgRating,
+                          ),
+                          RatingBar.builder(
+                            initialRating: rating,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 1.0),
+                            itemSize: 30,
+                            itemBuilder: (context, _) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            ignoreGestures: true,
+                            onRatingUpdate: (_) {},
+                          ),
+                        ],
+                      ),
                     ),
-                  );
-                },
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: snapshot.data.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Center(
+                          child: ReviewItem(
+                            date: snapshot.data![index].date!,
+                            name: snapshot.data![index].userName ?? '',
+                            rate: snapshot.data![index].rate,
+                            review: snapshot.data![index].review,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               );
             } else {
               return const Center(child: CircularProgressIndicator());
@@ -106,15 +160,14 @@ class _ReviewScreenState extends State<ReviewScreen> {
     return InkWell(
       onTap: () {
         showDialog(
-          context: context,
-          builder: (context){
-            return CreateNewReview(
-              userRating: review?.rate,
-              userReview: review?.review,
-              callback: onAddReview,
-            );
-          });
-
+            context: context,
+            builder: (context) {
+              return CreateNewReview(
+                userRating: review?.rate,
+                userReview: review?.review,
+                callback: onAddReview,
+              );
+            });
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
