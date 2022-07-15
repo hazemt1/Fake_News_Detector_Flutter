@@ -45,5 +45,6 @@
   "news": "News: ",
   "noHistory": "You didn't detect any news.",
   "avgRating": "Average Rating: ",
-  "enterNews": "Please Enter News"
+  "enterNews": "Please Enter News",
+  "wrongLang": "Please Enter Arabic or English"
 }

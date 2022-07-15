@@ -2,6 +2,7 @@ import 'package:fake_news/Api/DetectorAPI.dart';
 import 'package:fake_news/Widgets/CustomAppBar.dart';
 import 'package:fake_news/Widgets/CustomDrawer.dart';
 import 'package:fake_news/bloc/user/user_bloc.dart';
+import 'package:fake_news/utils/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -234,13 +235,22 @@ class _DetectorState extends State<Detector> {
     }
 
     setState(() {
-      _detect = true;
-      if (res < 0.5) {
-        tf = false;
-        _result = (1 - res) * 100;
-      } else {
-        tf = true;
-        _result = res * 100;
+      if(res==-1){
+        errorFlag = false;
+        error = AppLocalizations.of(context)!.wrongLang;
+      }else if(res==-99){
+        Preferences.removeUser();
+        BlocProvider.of<UserBloc>(context).add(const UserLogout());
+      }else{
+        _detect = true;
+
+        if (res < 0.5) {
+          tf = false;
+          _result = (1 - res) * 100;
+        } else {
+          tf = true;
+          _result = res * 100;
+        }
       }
     });
   }

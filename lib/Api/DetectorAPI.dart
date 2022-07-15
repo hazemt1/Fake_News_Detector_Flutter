@@ -18,8 +18,13 @@ class DetectorAPI{
       var decoded =jsonDecode(response.body)["result_Percent"];
       return decoded;
     }
-    else if(response.statusCode == 401) {
-
+    else if(response.statusCode == 400) {
+      return -1;
+    }
+    else if(response.statusCode == 401 &&
+        (jsonDecode(response.body)["message"] == "your token has expired!,please log in again"||
+            jsonDecode(response.body)["message"] =="Invalid token,please log in again")){
+      return -99;
     }
     else {
       throw Exception(response.body);
@@ -39,8 +44,8 @@ class DetectorAPI{
       var decoded =jsonDecode(response.body)["result_Percent"];
       return decoded;
     }
-    else if(response.statusCode == 401) {
-
+    else if(response.statusCode == 400) {
+      return -1;
     }
     else {
       throw Exception(response.body);
