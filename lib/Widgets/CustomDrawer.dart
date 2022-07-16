@@ -76,8 +76,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if(MediaQuery.of(context).size.height>500)
-              const SizedBox(height: 200,),
+              const SizedBox(height: 75,),
               ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                   itemCount: list.length,
                   itemBuilder: (context,index){

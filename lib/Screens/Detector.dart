@@ -233,10 +233,10 @@ class _DetectorState extends State<Detector> {
     } else {
       res = await DetectorAPI.guestDetect(newsText);
     }
-
+    print(res);
     setState(() {
       if(res==-1){
-        errorFlag = false;
+        errorFlag = true;
         error = AppLocalizations.of(context)!.wrongLang;
       }else if(res==-99){
         Preferences.removeUser();

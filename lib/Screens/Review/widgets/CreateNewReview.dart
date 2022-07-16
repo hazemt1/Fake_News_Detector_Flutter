@@ -88,7 +88,7 @@ class _CreateNewReviewState extends State<CreateNewReview> {
                   horizontal: 10,
                   vertical: 10,
                 ),
-                constraints: const BoxConstraints(maxHeight: 700),
+                constraints: const BoxConstraints(maxHeight: 400),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
@@ -105,70 +105,94 @@ class _CreateNewReviewState extends State<CreateNewReview> {
               const SizedBox(
                 height: 30,
               ),
-              Wrap(
-                spacing: 10,
-                runSpacing: 20,
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      errorFlag = false;
-                      error = "";
-                      String res = '';
-                      if (widget.userReview == null) {
-                        res = await ReviewApi.createReview(
-                          BlocProvider.of<UserBloc>(context)
-                              .state
-                              .logInfo
-                              .token!,
-                          Review(review: review, rate: rating),
-                        );
-                      } else {
-                        res = await ReviewApi.updateReview(
-                          BlocProvider.of<UserBloc>(context)
-                              .state
-                              .logInfo
-                              .token!,
-                          Review(review: review, rate: rating),
-                        );
-                      }
-
-                      if (res != '') {
-                        setState(() {
-                          errorFlag = true;
-                          error = res;
-                        });
-                      } else {
-                        widget.callback();
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)!.submit,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  if (widget.userReview != null)
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxHeight: 300
+                ),
+                child: Wrap(
+                  // spacing: 10,
+                  // runSpacing: 20,
+                  alignment: WrapAlignment.center,
+                  children: [
                     InkWell(
-                      onTap: () {
-                        ReviewApi.deleteReview(
-                          BlocProvider.of<UserBloc>(context)
-                              .state
-                              .logInfo
-                              .token!,
-                        );
-                        widget.callback();
-                        Navigator.of(context).pop();
+                      onTap: () async {
+                        errorFlag = false;
+                        error = "";
+                        String res = '';
+                        if (widget.userReview == null) {
+                          res = await ReviewApi.createReview(
+                            BlocProvider.of<UserBloc>(context)
+                                .state
+                                .logInfo
+                                .token!,
+                            Review(review: review, rate: rating),
+                          );
+                        } else {
+                          res = await ReviewApi.updateReview(
+                            BlocProvider.of<UserBloc>(context)
+                                .state
+                                .logInfo
+                                .token!,
+                            Review(review: review, rate: rating),
+                          );
+                        }
+
+                        if (res != '') {
+                          setState(() {
+                            errorFlag = true;
+                            error = res;
+                          });
+                        } else {
+                          widget.callback();
+                          Navigator.of(context).pop();
+                        }
                       },
                       child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.submit,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      ),
+                    ),
+                    // const Spacer(),
+                    if (widget.userReview != null)
+                      InkWell(
+                        onTap: () {
+                          ReviewApi.deleteReview(
+                            BlocProvider.of<UserBloc>(context)
+                                .state
+                                .logInfo
+                                .token!,
+                          );
+                          widget.callback();
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.redAccent,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            AppLocalizations.of(context)!.deleteReview,
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ),
+                      ),
+                    // const Spacer(),
+                    InkWell(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
                         padding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 10),
                         decoration: BoxDecoration(
@@ -176,28 +200,13 @@ class _CreateNewReviewState extends State<CreateNewReview> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          AppLocalizations.of(context)!.deleteReview,
+                          AppLocalizations.of(context)!.cancel,
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                     ),
-                  const Spacer(),
-                  InkWell(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.redAccent,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)!.cancel,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

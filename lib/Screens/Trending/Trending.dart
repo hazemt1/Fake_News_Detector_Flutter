@@ -44,6 +44,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
         child: FutureBuilder<NewsResponse>(
           future: newsSources,
           builder: (context, snapShot) {
+            print(snapShot.hasData);
             if (snapShot.hasData) {
               return ListView.builder(
 

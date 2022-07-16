@@ -14,11 +14,13 @@ class DetectorAPI{
     var body = jsonEncode(data) ;
     final response = await http.post(uri,body: body ,headers: headers);
     // print(response.body);
+    // print(response.statusCode);
     if (response.statusCode >= 200 && response.statusCode < 400) {
       var decoded =jsonDecode(response.body)["result_Percent"];
       return decoded;
     }
     else if(response.statusCode == 400) {
+      // print('hello');
       return -1;
     }
     else if(response.statusCode == 401 &&
